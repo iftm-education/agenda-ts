@@ -11,5 +11,7 @@ router.post('/', validate(usuarioSchema.createUsuarioSchema), usuarioController.
 
 router.put('/:id', validate(usuarioSchema.updateUsuarioSchema), usuarioController.update);
 
+router.delete('/:id', validate(usuarioSchema.usuarioParamsSchema, "params"), usuarioController.remove);
+
 
 export default router;

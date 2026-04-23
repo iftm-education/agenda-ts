@@ -44,13 +44,34 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
 
 export const update = async (req: Request, res: Response): Promise<Response> => {
     
+    try{
 
-    const { id } = req.params;
-
-    const updatedUsuario = await prisma.usuario.update({
-        where: { id: Number(id) },
-        data: req.body
-    });
-    // Lógica para atualizar um usuário
-    return res.status(200).json({ obj: updatedUsuario, message: "Usuário atualizado com sucesso" });
+        const { id } = req.params;
+    
+        const updatedUsuario = await prisma.usuario.update({
+            where: { id: Number(id) },
+            data: req.body
+        });
+        // Lógica para atualizar um usuário
+        return res.status(200).json({ obj: updatedUsuario, message: "Usuário atualizado com sucesso" });
+    } catch (error:any) {
+        console.error("Erro ao atualizar usuário:", error);
+        return res.status(500).json({ error: "Erro ao atualizar usuário" });
+    }
 };
+
+export const remove = async (req: Request, res: Response): Promise<Response> => {
+    
+    try{
+        const { id } = req.params;
+        await prisma.usuario.delete({
+            where: { id: Number(id) },
+        });
+        // Lógica para remover um usuário
+        return res.status(200).json({ message: "Usuário removido com sucesso" });
+
+    } catch (error:any) {
+        console.error("Erro ao remover usuário:", error);
+        return res.status(500).json({ error: "Erro ao remover usuário" });
+    }
+}

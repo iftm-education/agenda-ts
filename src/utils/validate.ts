@@ -1,11 +1,13 @@
 import { Request, Response, NextFunction } from "express";
 import * as z from "zod";
 
+type RequestSegment = "body" | "params" | "query";
+
 export const validate =
-  <T extends z.ZodType>(schema: T) =>
+  <T extends z.ZodType>(schema: T, segment : RequestSegment = "body" ) =>
   (req: Request, res: Response, next: NextFunction) => {
     try {
-      req.body = schema.parse(req.body);
+      req[segment] = schema.parse(req[segment]);
       next();
     } catch (error) {
       if (error instanceof z.ZodError) {
