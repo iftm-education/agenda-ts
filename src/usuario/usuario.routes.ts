@@ -1,23 +1,27 @@
-import { Router } from 'express';
-import { validate } from '../utils/validate';
+import { Router } from "express";
+import {
+  getAll,
+  getById,
+  create,
+  update,
+  remove,
+  getCreatedToday
+} from "./usuario.controller";
+
+import { validate } from "../utils/validate";
+import {
+  createUsuarioSchema,
+  updateUsuarioSchema
+} from "./usuario.schema";
+
 const router = Router();
 
-import * as usuarioController from './usuario.controller';
-import * as usuarioSchema from './usuario.schema';
+router.get("/", getAll);
+router.get("/hoje", getCreatedToday);
+router.get("/:id", getById);
 
-
-/**
- * @openapi
- * /usuarios:
- *   get:
- */
-router.get('/', usuarioController.getAll);
-
-router.post('/', validate(usuarioSchema.createUsuarioSchema), usuarioController.create);
-
-router.put('/:id', validate(usuarioSchema.updateUsuarioSchema), usuarioController.update);
-
-router.delete('/:id', validate(usuarioSchema.usuarioParamsSchema, "params"), usuarioController.remove);
-
+router.post("/", validate(createUsuarioSchema), create);
+router.put("/:id", validate(updateUsuarioSchema), update);
+router.delete("/:id", remove);
 
 export default router;
