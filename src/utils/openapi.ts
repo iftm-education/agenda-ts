@@ -1,5 +1,6 @@
 import { OpenAPIRegistry, OpenApiGeneratorV3 } from "@asteasolutions/zod-to-openapi";
 
+
 import { registerUsuarioPaths } from "../usuario/usuario.openapi";
 
 const registry = new OpenAPIRegistry();

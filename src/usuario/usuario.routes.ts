@@ -5,6 +5,12 @@ const router = Router();
 import * as usuarioController from './usuario.controller';
 import * as usuarioSchema from './usuario.schema';
 
+
+/**
+ * @openapi
+ * /usuarios:
+ *   get:
+ */
 router.get('/', usuarioController.getAll);
 
 router.post('/', validate(usuarioSchema.createUsuarioSchema), usuarioController.create);

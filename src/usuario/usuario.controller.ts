@@ -1,11 +1,10 @@
-import prisma from "../prisma/prismaClient";
-import { createUsuarioSchema } from "./usuario.schema";
+import { userRepository } from "./usuario.repo";
 import { Request, Response } from "express";
 
 export const getAll = async (req: Request, res: Response): Promise<Response> => {
     
     try{
-        const usuarios = await prisma.usuario.findMany();
+        const usuarios = await userRepository.getAll();
         return res.status(200).json(usuarios);
 
     }catch(error:any){
@@ -28,9 +27,7 @@ export const create = async (req: Request, res: Response): Promise<Response> => 
 
         const data = req.body; 
 
-        const novoUsuario = await prisma.usuario.create({
-            data
-        });
+        const novoUsuario = await userRepository.create(data);
         return res.status(201).json(novoUsuario);
 
     } catch (error:any) {
@@ -48,10 +45,7 @@ export const update = async (req: Request, res: Response): Promise<Response> => 
 
         const { id } = req.params;
     
-        const updatedUsuario = await prisma.usuario.update({
-            where: { id: Number(id) },
-            data: req.body
-        });
+        const updatedUsuario = await userRepository.update(Number(id), req.body);
         // Lógica para atualizar um usuário
         return res.status(200).json({ obj: updatedUsuario, message: "Usuário atualizado com sucesso" });
     } catch (error:any) {
@@ -64,9 +58,7 @@ export const remove = async (req: Request, res: Response): Promise<Response> => 
     
     try{
         const { id } = req.params;
-        await prisma.usuario.delete({
-            where: { id: Number(id) },
-        });
+        await userRepository.delete(Number(id));
         // Lógica para remover um usuário
         return res.status(200).json({ message: "Usuário removido com sucesso" });
 

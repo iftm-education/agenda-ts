@@ -73,7 +73,8 @@ export const updateUsuarioSchema = z.object({
       description: "Apelido do usuário (opcional)",
     }),
     senha : z.string().min(8).optional().openapi({
-      example: "senhaSegura123"
+      example: "senhaSegura123",
+      description: "Nova senha do usuário (opcional, mínimo 8 caracteres)"
     }),
     dataNascimento: dataNascimentoSchema.optional()
 });
