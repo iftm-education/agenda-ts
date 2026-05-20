@@ -6,7 +6,7 @@ export const userService = {
         return await userRepository.getAll();
 
     }catch(error){
-        throw new Error("Erro ao busca lista de usuários");
+        throw new Error("Erro ao buscar lista de usuários");
     }
   },
 
@@ -32,7 +32,7 @@ export const userService = {
          const usuarioExistente = await userRepository.findByEmail(data.email);
 
         if (usuarioExistente) {
-        throw new Error("E-mail já cadastrado");
+          throw new Error("E-mail já cadastrado");
         }
 
     return await userRepository.create(data);
@@ -40,7 +40,6 @@ export const userService = {
     }catch(error){
         throw new Error("Erro ao criar usuário.")
     }
-   
   },
 
   update: async (id: number, data: any) => {

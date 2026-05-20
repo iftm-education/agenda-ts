@@ -18,7 +18,7 @@ export const openApiDocument = generator.generateDocument({
         description: "API para  gerenciamento de agenda da contatos",
     },
     servers: [
-        {   url: "http://localhost:3000/api",
+        {   url: "http://localhost:3000",
             description: "Servidor local de desenvolvimento",
         },
     ],

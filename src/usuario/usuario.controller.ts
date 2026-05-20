@@ -5,7 +5,9 @@ export const getAll = async (req: Request, res: Response): Promise<Response> => 
   try {
     const usuarios = await userService.getAll();
     return res.status(200).json(usuarios);
+
   } catch (error: any) {
+    
     console.error("Erro ao buscar usuários:", error);
     return res.status(500).json({ error: "Erro ao buscar usuários" });
   }
